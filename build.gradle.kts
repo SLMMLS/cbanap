@@ -14,11 +14,15 @@ plugins {
     id("com.google.devtools.ksp") version "2.0.21-1.0.25" apply false
 }
 
-// Жесткая броня на абсолютно все модули проекта (включая app): запрещаем превращать варнинги в ошибки
+// Броня со встроенным разрешением экспериментальных фич для всего проекта
 allprojects {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         compilerOptions {
             allWarningsAsErrors.set(false)
+            // Автоматически разрешаем использовать экспериментальные Material 3 API без ошибок
+            freeCompilerArgs.addAll(
+                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
+            )
         }
     }
 }
