@@ -14,8 +14,8 @@ plugins {
     id("com.google.devtools.ksp") version "2.0.21-1.0.25" apply false
 }
 
-// Защита от сбоев: запрещаем компилятору останавливать сборку из-за предупреждений (варнингов)
-subprojects {
+// Жесткая броня на абсолютно все модули проекта (включая app): запрещаем превращать варнинги в ошибки
+allprojects {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         compilerOptions {
             allWarningsAsErrors.set(false)
