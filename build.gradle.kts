@@ -13,3 +13,12 @@ plugins {
     // with whatever Kotlin version you end up on.
     id("com.google.devtools.ksp") version "2.0.21-1.0.25" apply false
 }
+
+// Защита от сбоев: запрещаем компилятору останавливать сборку из-за предупреждений (варнингов)
+subprojects {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            allWarningsAsErrors.set(false)
+        }
+    }
+}
